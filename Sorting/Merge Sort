@@ -1,1 +1,102 @@
+//merge sort
+#include<bits/stdc++.h>
+using namespace std ;
+
+void merge(int arr[], int l, int mid, int r)
+{
+    int i, j, k, n1, n2;
+
+    n1 = mid-l+1;
+    n2 = r - mid;
+
+    //creating temporary array for comparison
+    int L[n1],R[n2];
+
+    //copying elements to the left array
+    for(int i = 0; i < n1; i++)
+    {
+        L[i] = arr[l+i];
+    }
+
+    //copying elements to the right array
+    for(int  j = 0; j < n2; j++)
+    {
+        R[j] = arr[mid+1+j];
+    }
+
+    i = 0; // i = index for left array
+    j = 0; // j = index for right array
+    k = l; // k= index for final array
+
+    //comparing and merging
+    while(i < n1 && j < n2)
+    {
+       if(L[i] < R[j])
+       {
+           arr[k] = L[i];
+           i++;
+           k++;
+       }
+       else
+       {
+           arr[k] = R[j];
+           j++;
+           k++;
+       }
+    }
+       //copying the remaining elements from left array
+    while(i < n1)
+    {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+       //copying the remaining elements from right array
+    while(j < n2)
+    {
+        arr[k]=R[j];
+        j++;
+        k++;
+    }
+
+
+
+}
+
+//function for dividing and sorting the array
+void merge_sort(int arr[], int l, int r)
+{
+    if(l < r)
+    {
+        int mid = (l + r)/2; // finding mid to avoid overflow
+
+       merge_sort(arr, l, mid); //sorting the first half
+
+       merge_sort(arr, mid + 1, r); //sorting the second half
+
+       merge(arr, l, mid, r);  // merging the divided arrays
+    }
+}
+
+
+int main()
+{
+    int arr[] = {4, 3, 2, 5, 1};
+    //before sorting
+    for(int i = 0;i < 5; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout<<endl;
+
+    merge_sort(arr, 0, 4);
+
+    //after sorting
+    for(int i = 0; i < 5; i++)
+    {
+        cout << arr[i] << " ";
+    }
+
+}
 
